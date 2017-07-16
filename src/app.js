@@ -11,6 +11,7 @@ export default class App {
 
     this.context = context;
     this.actions = {};
+    this.autoruns = {};
     this._routeFns = [];
   }
 
@@ -31,6 +32,18 @@ export default class App {
     }
 
     return actions;
+  }
+
+  _bindAutorunsContext(_autoruns) {
+    const autoruns = {};
+
+    for (let key in _autoruns) {
+      if (_autoruns.hasOwnProperty(key)) {
+        autoruns[key] = _autoruns[key].bind(null, this.context);
+      }
+    }
+
+    return autoruns;
   }
 
   loadModule(module) {
@@ -61,15 +74,29 @@ export default class App {
       ...actions
     };
 
+    const autoruns = module.autoruns || {};
+
+    const allAutoruns = {
+      ...this.autoruns,
+      ...autoruns
+    };
+
+    /*
+     * This module has no access to the actions/autoruns
+     * loaded after this module.
+     */
+    const boundedActions = this._bindContext(this.actions);
+    const boundedAutoruns = this._bindAutorunsContext(allAutoruns);
+
+    this.context.autoruns = boundedAutoruns;
+
     if (module.load) {
       if (typeof module.load !== 'function') {
         const message = `module.load should be a function`;
         throw new Error(message);
       }
 
-      // This module has no access to the actions loaded after this module.
-      const boundedActions = this._bindContext(this.actions);
-      module.load(this.context, boundedActions);
+      module.load(this.context, boundedActions, boundedAutoruns);
     }
 
     module.__loaded = true;
@@ -83,7 +110,8 @@ export default class App {
         return injectDeps(this.context, this.actions)(comp);
       };
 
-      routeFn(inject, this.context, this.actions);
+      // allow route fns to use defined autoruns
+      routeFn(inject, this.context, this.actions, this.autoruns);
     }
 
     this._routeFns = [];

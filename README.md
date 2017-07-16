@@ -1,48 +1,93 @@
-#mantra-core
+# MantraX - Mantra Architecture redesigned to work with MobX 3.x and Meteor 1.5+
 
-Core API for Mantra.
+MantraX deprecates old dependencies like React komposer 1.x in favor of Mobdux, a library
+that uses mobx-react's under the hood in order to bind MobX stores to dumb components in a Redux manner.
 
-### Introduction
+You can start Mantra apps as usual, with the difference that you can now add a Mobx store to the `context`
+object and it will be available on Containers files.
 
-This repo contains the core APP api where we create an mantra app and initialize it.
-
-Also, this package contains exported functions from both [`react-komposer`](https://github.com/kadirahq/react-komposer) and [`react-simple-di`](https://github.com/kadirahq/react-simple-di).
-That's purely for the ease of use.
-
-### Installation
+## Installation
 
 ```
-npm i --save mantra-core react
+npm i --save mantrax
 ```
 
-### App API
+## App API
 
+### App initialization
 ```js
-import MyComp from './myComp';
-import {createApp} from 'mantra-core';
+// client/main.js
+import { createApp } from 'mantrax';
+import initContext from './imports/configs/context';
 
-// Here's a simple Mantra Module
-const module = {
-  routes(injectDeps) {
-    const InjectedComp = injectDeps(MyComp);
-    // load routes and put `InjectedComp` to the screen.
-  },
-  load(context, actions) {
-    // do any module initialization
-  },
-  actions: {
-    myNamespace: {
-      doSomething: (context, arg1) => {}
-    }
-  }
-};
+// modules
+import coreModule from './imports/modules/core/index';
+import authModule from './imports/modules/auth/index';
 
-const context = {
-  client: new DataClient()
-};
+// init context
+const context = initContext({ Store: coreModule.stores });
 
+// create app
 const app = createApp(context);
-app.loadModule(module);
-// app.loadModule(someOtherModule);
+
+// load modules
+app.loadModule(authModule);
+app.loadModule(coreModule);
 app.init();
 ```
+
+### Module creation
+
+```
+// client/imports/modules/core/index
+
+import actions from './actions';
+import routes from './routes.jsx';
+import stores from './stores';
+import autoruns from './autoruns';
+
+export default {
+  routes,
+  stores,
+  actions,
+  autoruns,
+  load(_context, _actions, _autoruns) {
+      console.log('has autoruns?');
+      console.log(_autoruns);
+  }
+};
+```
+
+## Containers definition
+
+```
+// client/imports/modules/core/containers/todos
+
+import { connect } from 'mantrax';
+
+import HomeTodos from '../components/todos.jsx';
+
+const fromActionsToProps = (context, actions) => {
+  // initialize a subscription to DB that automatically syncs with a mobx store's value
+  context.autoruns.todos().start();
+
+  return {
+    goAbout: actions.routes.goAbout
+    insertTodo: actions.todos.insertTodo
+  };
+};
+
+const fromStoresToProps = (Stores, ownProps) => ({
+  todos: Stores.core.todoStore.todos.toJS(),
+  hasTodos: Stores.core.todoStore.hasTodos // a computed function from the MobX store
+});
+
+export default connect(fromActionsToProps, fromStoresToProps)(HomeTodos);
+```
+
+## Benefits
+
+1 - `HomeTodos` component will get 4 props: 2 actions and 2 store's values
+2 - `todos` value is automatically fill from a Meteor subscription created on `autoruns` folder
+3 - The Dumb component `HomeTodos` doesn't know about `mobx-react` (doesn't need the @observer decorator)
+4 - If you know connect API from Redux you know MantraX

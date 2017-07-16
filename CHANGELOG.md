@@ -1,5 +1,9 @@
 # Change Log
 
+### v2.0.0
+* Update mantra-core to use MobX 3.x and Meteor 1.5+
+* Renamed the package to MantraX
+
 ### v1.7.0
 
 * Update react-storybook to v1.9.0 to support stubbing.
