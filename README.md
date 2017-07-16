@@ -87,7 +87,7 @@ export default connect(fromActionsToProps, fromStoresToProps)(HomeTodos);
 
 ## Benefits
 
-1- `HomeTodos` component will get 4 props: 2 actions and 2 store's values
-2- `todos` value is automatically fill from a Meteor subscription created on `autoruns` folder
-3- The Dumb component `HomeTodos` doesn't know about `mobx-react` (doesn't need the @observer decorator)
-4- If you know connect API from Redux you know MantraX
+* `HomeTodos` component will get 4 props: 2 actions and 2 store's values.
+* `todos` value is automatically fill from a Meteor subscription created on `autoruns` folder.
+* The Dumb component `HomeTodos` doesn't know about `mobx-react` (doesn't need the @observer decorator).
+* If you know connect API from Redux you know MantraX.
