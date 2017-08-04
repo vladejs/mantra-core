@@ -119,7 +119,7 @@ const fromStoresToProps = (stores, ownProps) => ({
 export default connect(fromActionsToProps, fromStoresToProps)(HomeTodos);
 ```
 
-// Generic MobX-Publication Subscriber
+## Generic MobX-Publication Subscriber
 ```
 // client/imports/modules/core/autoruns/create.js
 import autorun, { observe } from 'meteor/vladejs:tracker-mobx-autorun';
