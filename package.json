@@ -1,7 +1,7 @@
 {
   "name": "mantrax",
-  "version": "2.0.0",
-  "description": "Core API for Mantra X, mantra-core with mobx and support for Meteor 1.5+",
+  "version": "2.0.2",
+  "description": "Core API for Mantra Phoenix: mantra-core with Mobx and support for Meteor 1.5+",
   "repository": {
     "type": "git",
     "url": "https://github.com/vladejs/mantrax.git"
@@ -19,23 +19,24 @@
     "test-watch": "npm run testonly -- --watch --watch-extensions js"
   },
   "devDependencies": {
-    "nodemon": "1.7.x",
-    "mocha": "2.x.x",
-    "chai": "3.x.x",
-    "eslint": "1.7.x",
-    "babel-eslint": "4.x.x",
-    "eslint-plugin-babel": "2.x.x",
-    "babel-cli": "6.x.x",
-    "babel-core": "6.x.x",
-    "babel-polyfill": "6.x.x",
-    "babel-preset-es2015": "6.x.x",
-    "babel-preset-stage-2": "6.x.x",
-    "babel-plugin-transform-runtime": "6.x.x",
+    "babel-cli": "^6.x.x",
+    "babel-core": "^6.x.x",
+    "babel-eslint": "latest",
+    "babel-plugin-transform-runtime": "^6.x.x",
+    "babel-polyfill": "^6.x.x",
+    "babel-preset-es2015": "^6.x.x",
+    "babel-preset-stage-2": "^6.x.x",
+    "chai": "latest",
+    "eslint": "latest",
+    "mocha": "latest",
+    "nodemon": "latest",
     "react": "latest"
   },
   "dependencies": {
+    "babel-preset-react": "^6.24.1",
     "babel-runtime": "6.x.x",
     "mobdux": "^1.0.4",
+    "react-dom": "^15.6.1",
     "react-simple-di": "latest"
   }
 }

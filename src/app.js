@@ -12,6 +12,7 @@ export default class App {
     this.context = context;
     this.actions = {};
     this.autoruns = {};
+    this.stores = {};
     this._routeFns = [];
   }
 
@@ -68,7 +69,24 @@ export default class App {
       this._routeFns.push(module.routes);
     }
 
+    if (module.stores) {
+      if (typeof module.stores !== 'object') {
+        const message = `Module's stores field should be an object with all defined stores.`;
+        throw new Error(message);
+      }
+
+      const stores = {
+        ...this.stores,
+        ...module.stores
+      };
+
+      this.stores = stores;
+
+      this.context.stores = stores;
+    }
+
     const actions = module.actions || {};
+
     this.actions = {
       ...this.actions,
       ...actions
@@ -76,7 +94,7 @@ export default class App {
 
     const autoruns = module.autoruns || {};
 
-    const allAutoruns = {
+    this.autoruns = {
       ...this.autoruns,
       ...autoruns
     };
@@ -86,9 +104,12 @@ export default class App {
      * loaded after this module.
      */
     const boundedActions = this._bindContext(this.actions);
-    const boundedAutoruns = this._bindAutorunsContext(allAutoruns);
+    const boundedAutoruns = this._bindAutorunsContext(this.autoruns);
 
     this.context.autoruns = boundedAutoruns;
+
+    // need to do this in order to access actions from other actions
+    this.context.actions = boundedActions;
 
     if (module.load) {
       if (typeof module.load !== 'function') {

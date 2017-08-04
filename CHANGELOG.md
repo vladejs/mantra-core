@@ -1,8 +1,33 @@
 # Change Log
 
+### v2.0.2
+* Added actions to context object in order to allow triggering actions from actions
+```
+export default {
+  saveTodo: ({ Meteor, FlowRouter, actions }, param1, param2) => {
+    Meteor.call('todos.save', param1, function(error, id){
+      actions.notifyUsers(id, param2);
+    });
+  },
+
+  notifyUsers: ({ Collections, stores, actions }, id, param2) => {
+    ...
+  }
+};
+```
+
+* Autoruns should now be returned on containers so they are automatically stopped when the container
+gets destroyed. See README.md for implementation details.
+
+### v2.0.1
+* Automatically register the module's stores into the context object
+* All module's autoruns are correctly available to all modules (like actions)
+
 ### v2.0.0
 * Update mantra-core to use MobX 3.x and Meteor 1.5+
 * Renamed the package to MantraX
+* Removed React-komposer 1.x
+* Added mobdux (thin wrapper for mobx-react wich avoids you tu @observe all your dumb components)
 
 ### v1.7.0
 
