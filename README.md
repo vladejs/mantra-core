@@ -40,8 +40,8 @@ app.init();
 
 ### Module creation
 
-```
-// client/imports/modules/core/index
+```js
+// client/imports/modules/core/index.js
 
 import actions from './actions';
 import routes from './routes.jsx';
@@ -68,8 +68,8 @@ export default {
 
 ## Containers definition
 
-```
-// client/imports/modules/core/containers/todos
+```js
+// client/imports/modules/core/containers/todos.js
 
 import { connect } from 'mantrax';
 
@@ -120,7 +120,7 @@ export default connect(fromActionsToProps, fromStoresToProps)(HomeTodos);
 ```
 
 ## Generic MobX-Publication Subscriber
-```
+```js
 // client/imports/modules/core/autoruns/create.js
 import autorun, { observe } from 'meteor/vladejs:tracker-mobx-autorun';
 
@@ -155,7 +155,7 @@ export default (
 ```
 
 ## A simple MobX store
-```
+```js
 // client/imports/modules/core/stores/todos.js
 import { observable } from 'mobx';
 export default observable({
@@ -174,5 +174,5 @@ export default observable({
 * The Dumb component `HomeTodos` doesn't know about `mobx-react` (doesn't need the @observer decorator).
 * If you know connect API from Redux you know MantraX.
 
-See CHANGELOG.md to see the list of changes.
+See `CHANGELOG.md` to see the list of changes.
 Please feel free to report bugs/feedback/questions/[put your term here] related to Mantra Phoenix.
