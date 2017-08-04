@@ -154,6 +154,16 @@ export default (
 };
 ```
 
+## A simple MobX store
+```
+// client/imports/modules/core/stores/todos.js
+import { observable } from 'mobx';
+export default observable({
+  todos: [],
+  hasTodos() { this.todos.length > 0 }
+});
+```
+
 ## Takeaways
 
 * Minimal re-renders out of the box thanks to MobX.
