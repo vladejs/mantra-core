@@ -1,6 +1,6 @@
 import {
   useDeps as _useDeps
-} from 'react-simple-di';
+} from 'nqm-react-simple-di';
 
 import {
   connect as _connect,
