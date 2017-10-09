@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {createApp} from '../';
 import * as indexExports from '../';
-import * as simpleSimpleDiExports from 'react-simple-di';
+import * as simpleSimpleDiExports from 'nqm-react-simple-di';
 
 const {describe, it} = global;
 
@@ -14,7 +14,7 @@ describe('Module', () => {
     });
   });
 
-  it('should have useDeps from react-simple-di', () => {
+  it('should have useDeps from nqm-react-simple-di', () => {
     expect(indexExports.useDeps).to.be.equal(simpleSimpleDiExports.useDeps);
   });
 });

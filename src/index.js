@@ -14,7 +14,7 @@ import createHOC from './hoc';
 // export this module's functions
 export const createApp = (...args) => (new App(...args));
 
-// export react-simple-di functions
+// export nqm-react-simple-di functions
 export const useDeps = _useDeps;
 
 // export mobdux functions

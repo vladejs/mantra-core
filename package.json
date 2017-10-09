@@ -1,6 +1,6 @@
 {
   "name": "mantrax",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Core API for Mantra Phoenix: mantra-core with Mobx and support for Meteor 1.5+",
   "repository": {
     "type": "git",

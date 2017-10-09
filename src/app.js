@@ -1,6 +1,6 @@
 import {
   injectDeps
-} from 'react-simple-di';
+} from 'nqm-react-simple-di';
 
 export default class App {
   constructor(context) {
