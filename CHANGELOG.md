@@ -1,5 +1,11 @@
 # Change Log
 
+### v2.0.4
+Replace react-simple-di for nqm-react-simple-di
+
+### v2.0.3
+Add complete examples to README file
+
 ### v2.0.2
 * Added actions to context object in order to allow triggering actions from actions
 ```
