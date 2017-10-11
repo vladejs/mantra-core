@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 export default DumbComponent => class extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
     this.processAutoruns();
   }
 

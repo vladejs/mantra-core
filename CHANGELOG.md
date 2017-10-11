@@ -1,5 +1,8 @@
 # Change Log
 
+### v2.0.6
+
+
 ### v2.0.4, v2.0.5
 Replace react-simple-di for nqm-react-simple-di
 
